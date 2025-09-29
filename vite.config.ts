@@ -1,4 +1,5 @@
 import { svelte } from "@sveltejs/vite-plugin-svelte";
+import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import { manifestPlugin } from "./src/build/manifest-plugin";
 
@@ -8,5 +9,5 @@ export default defineConfig({
     sourcemap: true,
     target: "esnext",
   },
-  plugins: [svelte(), manifestPlugin()],
+  plugins: [svelte(), tailwindcss(), manifestPlugin()],
 });
