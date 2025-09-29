@@ -5,8 +5,8 @@ import { manifestPlugin } from "./src/build/manifest-plugin";
 // https://vite.dev/config/
 export default defineConfig({
   build: {
-    target: "esnext",
     sourcemap: true,
+    target: "esnext",
   },
   plugins: [svelte(), manifestPlugin()],
 });

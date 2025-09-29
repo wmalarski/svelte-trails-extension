@@ -1,0 +1,70 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.2.4/schema.json",
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on",
+        "useSortedAttributes": "on",
+        "useSortedKeys": "on",
+        "useSortedProperties": "on"
+      }
+    }
+  },
+  "files": {
+    "includes": ["**", "!**/*.svelte"]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2
+  },
+  "javascript": {
+    "globals": ["chrome"]
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "a11y": {
+        "noSvgWithoutTitle": "off"
+      },
+      "complexity": {
+        "noExcessiveCognitiveComplexity": "error",
+        "noUselessStringConcat": "error",
+        "noUselessUndefinedInitialization": "error",
+        "useDateNow": "error",
+        "useSimplifiedLogicExpression": "error"
+      },
+      "correctness": {
+        "noConstantMathMinMaxClamp": "error",
+        "noUndeclaredDependencies": "off",
+        "noUndeclaredVariables": "error",
+        "noUnusedFunctionParameters": "error",
+        "noUnusedImports": "error",
+        "noUnusedVariables": "error"
+      },
+      "nursery": {
+        "useSortedClasses": "error"
+      },
+      "recommended": true,
+      "style": {
+        "noDefaultExport": "off",
+        "noNonNullAssertion": "error",
+        "useFilenamingConvention": {
+          "level": "error",
+          "options": {
+            "filenameCases": ["kebab-case"],
+            "requireAscii": true
+          }
+        }
+      },
+      "suspicious": {
+        "noConsole": "off"
+      }
+    }
+  },
+  "vcs": {
+    "clientKind": "git",
+    "enabled": true,
+    "useIgnoreFile": true
+  }
+}
