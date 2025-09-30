@@ -1,6 +1,6 @@
+import path from "node:path";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 import tailwindcss from "@tailwindcss/vite";
-import path from "node:path";
 import { defineConfig } from "vite";
 import { manifestPlugin } from "./src/build/manifest-plugin";
 

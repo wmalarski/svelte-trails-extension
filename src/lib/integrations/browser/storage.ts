@@ -9,7 +9,7 @@ type OnChangeListener = Parameters<
 
 export const onStorageChange = (
   url: string,
-  callback: (change: chrome.storage.StorageChange) => void
+  callback: (change: chrome.storage.StorageChange) => void,
 ) => {
   const listener: OnChangeListener = (changes) => {
     const currentChanges = changes[url];
