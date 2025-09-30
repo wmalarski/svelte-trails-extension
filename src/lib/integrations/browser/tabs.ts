@@ -23,8 +23,5 @@ export const onCurrentUrlChange = (callback: () => void) => {
   };
 
   chrome.tabs.onActivated.addListener(onActivatedListener);
-
-  // onCleanup(() => {
-  //   chrome.tabs.onActivated.removeListener(onActivatedListener);
-  // });
+  return () => chrome.tabs.onActivated.removeListener(onActivatedListener);
 };

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Button } from "./components/ui/button";
+  import { Button } from "../../components/ui/button";
 
   let count: number = $state(0);
   const increment = () => {
