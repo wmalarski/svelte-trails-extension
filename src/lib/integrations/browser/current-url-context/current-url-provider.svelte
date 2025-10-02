@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount, type Snippet } from "svelte";
-  import { getCurrentUrl, onCurrentUrlChange } from "../tabs.js";
+  import { getCurrentOrigin, onCurrentUrlChange } from "../tabs.js";
   import { setCurrentUrlContext } from "./current-url-context.svelte.js";
 
   interface Props {
@@ -15,7 +15,7 @@
 
   onMount(() => {
     const handleChange = async () => {
-      const updatedUrl = await getCurrentUrl();
+      const updatedUrl = await getCurrentOrigin();
       if (updatedUrl) {
         currentUrl.url = updatedUrl;
       }
@@ -26,4 +26,3 @@
 </script>
 
 {@render children()}
-<span>URL:{currentUrl.url}</span>

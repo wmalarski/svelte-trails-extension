@@ -1,19 +1,16 @@
 <script lang="ts">
   import { getCurrentUrlContext } from "$lib/integrations/browser/current-url-context/current-url-context.svelte.ts";
-  import { Button } from "../../components/ui/button";
+  import AddTrailForm from "./add-trail-form.svelte";
+  import { MT_WEBSITE_URL } from "./constants";
 
-  let count: number = $state(0);
-  const increment = () => {
-    count += 1;
-  };
-
-  const context = getCurrentUrlContext();
+  const currentUrlContext = getCurrentUrlContext();
 </script>
 
-<Button onclick={increment}>
-  count IS {count}
-</Button>
+<span>{currentUrlContext.url}</span>
+{#if currentUrlContext.url === MT_WEBSITE_URL}
+  <p>what was the question?</p>
+{:else}
+  <p>Wrong website</p>
+{/if}
 
-<span>
-  {context.url}
-</span>
+<AddTrailForm />
