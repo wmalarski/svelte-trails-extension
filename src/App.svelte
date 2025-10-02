@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { CurrentUrlProvider } from "$lib/integrations/browser/current-url-context";
-  import TrailsList from "./lib/modules/trails/trails-list.svelte";
+  import { OriginProvider } from "$lib/integrations/browser/origin-context";
+  import TrailsList from "$lib/modules/trails/trails-list.svelte";
 </script>
 
-<CurrentUrlProvider>
+<OriginProvider>
   <main>
     <TrailsList />
   </main>
-</CurrentUrlProvider>
+</OriginProvider>

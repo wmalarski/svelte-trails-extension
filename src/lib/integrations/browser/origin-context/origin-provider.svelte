@@ -1,24 +1,25 @@
 <script lang="ts">
   import { onMount, type Snippet } from "svelte";
   import { getCurrentOrigin, onCurrentUrlChange } from "../tabs.js";
-  import { setCurrentUrlContext } from "./current-url-context.svelte.js";
+  import {
+    setOriginContext,
+    type OriginContextState,
+  } from "./origin-context.js";
 
   interface Props {
     children: Snippet;
   }
 
-  let currentUrl = $state({ url: "/" });
+  let context = $state<OriginContextState>({});
 
   const { children }: Props = $props();
 
-  setCurrentUrlContext(currentUrl);
+  setOriginContext(context);
 
   onMount(() => {
     const handleChange = async () => {
-      const updatedUrl = await getCurrentOrigin();
-      if (updatedUrl) {
-        currentUrl.url = updatedUrl;
-      }
+      const updatedOrigin = await getCurrentOrigin();
+      context.origin = updatedOrigin;
     };
     handleChange();
     return onCurrentUrlChange(handleChange);
