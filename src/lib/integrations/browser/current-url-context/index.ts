@@ -1,3 +1,5 @@
-import Root, { getUserContext } from "./current-url-context.svelte";
-
-export { Root as CurrentUrlContext, getUserContext };
+export {
+  getCurrentUrlContext,
+  setCurrentUrlContext,
+} from "./current-url-context.svelte";
+export { default as CurrentUrlProvider } from "./current-url-provider.svelte";

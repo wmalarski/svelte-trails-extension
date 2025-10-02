@@ -6,8 +6,8 @@ type CurrentUrlContextState = {
   url: string;
 };
 
-export const setCurrentUrlContext = (user: CurrentUrlContextState) => {
-  setContext(key, user);
+export const setCurrentUrlContext = (context: CurrentUrlContextState) => {
+  setContext(key, context);
 };
 
 export const getCurrentUrlContext = () => {
