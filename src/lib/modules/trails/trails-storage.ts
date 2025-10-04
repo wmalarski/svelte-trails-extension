@@ -3,38 +3,39 @@ import {
   onStorageChange,
 } from "$lib/integrations/browser/storage";
 
-export type SavedConfig = {
+export type TrailEntry = {
   id: number;
   name: string;
-  kind: "locale" | "cookie";
-  values: string[];
+  participants: string[];
+  date: Date;
+  url: string;
 };
 
-const STORAGE_CONFIG_KEY = "configs";
+const STORAGE_TRAILS_KEY = "trails";
 
 type StorageShape = {
-  [STORAGE_CONFIG_KEY]: SavedConfig[];
+  [STORAGE_TRAILS_KEY]: TrailEntry[];
 };
 
-export const getSavedConfig = async () => {
-  const data = await chrome.storage.local.get<StorageShape>(STORAGE_CONFIG_KEY);
-  const configs = data[STORAGE_CONFIG_KEY] ?? [];
-  return configs.map<SavedConfig>((entry) => ({
+export const getSavedTrails = async () => {
+  const data = await chrome.storage.local.get<StorageShape>(STORAGE_TRAILS_KEY);
+  const trails = data[STORAGE_TRAILS_KEY] ?? [];
+  return trails.map<TrailEntry>((entry) => ({
     ...entry,
-    values: objectToArray(entry.values),
+    participants: objectToArray(entry.participants),
   }));
 };
 
-export const setSavedConfig = (configs: SavedConfig[]) => {
+export const setSavedConfig = (trails: TrailEntry[]) => {
   return chrome.storage.local.set<StorageShape>({
-    [STORAGE_CONFIG_KEY]: configs,
+    [STORAGE_TRAILS_KEY]: trails,
   });
 };
 
 export const onSavedConfigChange = (
-  callback: (configs: SavedConfig[]) => void
+  callback: (trails: TrailEntry[]) => void
 ) => {
-  return onStorageChange(STORAGE_CONFIG_KEY, (change) => {
-    callback(change.newValue as SavedConfig[]);
+  return onStorageChange(STORAGE_TRAILS_KEY, (change) => {
+    callback(change.newValue as TrailEntry[]);
   });
 };

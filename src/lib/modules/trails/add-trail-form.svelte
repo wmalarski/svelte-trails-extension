@@ -3,6 +3,32 @@
   import * as Card from "$lib/components/ui/card/index.js";
   import { Input } from "$lib/components/ui/input/index.js";
   import { Label } from "$lib/components/ui/label/index.js";
+  import { getCurrentUrl } from "$lib/integrations/browser/tabs";
+  import type { FormSubmitEvent } from "$lib/utils";
+  import { decode } from "decode-formdata";
+  import * as v from "valibot";
+
+  const onSubmit = async (event: FormSubmitEvent) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const url = await getCurrentUrl();
+
+    const parsed = await v.safeParseAsync(
+      v.object({
+        name: v.string(),
+        participants: v.array(v.string()),
+        date: v.date(),
+      }),
+      decode(formData, { arrays: ["values"], dates: ["date"] })
+    );
+
+    if (!parsed.success || !url) {
+      return;
+    }
+
+    console.log({ parsed, url });
+  };
 </script>
 
 <Card.Root class="w-full max-w-sm">
@@ -16,7 +42,7 @@
     </Card.Action>
   </Card.Header>
   <Card.Content>
-    <form>
+    <form onsubmit={onSubmit}>
       <div class="flex flex-col gap-6">
         <div class="grid gap-2">
           <Label for="email">Email</Label>
