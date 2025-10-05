@@ -1,10 +1,10 @@
 <script lang="ts">
   import { OriginProvider } from "$lib/integrations/browser/origin-context";
-  import TrailsList from "$lib/modules/trails/trails-list.svelte";
+  import TrailsBoard from "$lib/modules/trails/trails-board.svelte";
 </script>
 
 <OriginProvider>
   <main>
-    <TrailsList />
+    <TrailsBoard />
   </main>
 </OriginProvider>

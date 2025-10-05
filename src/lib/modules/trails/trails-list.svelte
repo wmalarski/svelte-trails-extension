@@ -1,16 +1,11 @@
 <script lang="ts">
-  import { getOriginContext } from "$lib/integrations/browser/origin-context";
-  import AddTrailForm from "./add-trail-form.svelte";
-  import { MT_WEBSITE_URL } from "./constants";
+  import { getTrailsContext } from "./trails-context.svelte";
 
-  const originContext = getOriginContext();
+  const trailsContext = getTrailsContext();
 </script>
 
-<span>{originContext.origin}</span>
-{#if originContext.origin === MT_WEBSITE_URL}
-  <p>what was the question?</p>
-{:else}
-  <p>Wrong website</p>
-{/if}
-
-<AddTrailForm />
+<ul>
+  {#each trailsContext.trails as trail}
+    <li>{JSON.stringify(trail, null, 2)}</li>
+  {/each}
+</ul>

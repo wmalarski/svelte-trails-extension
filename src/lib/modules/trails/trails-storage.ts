@@ -26,13 +26,13 @@ export const getSavedTrails = async () => {
   }));
 };
 
-export const setSavedConfig = (trails: TrailEntry[]) => {
+export const setSavedTrails = (trails: TrailEntry[]) => {
   return chrome.storage.local.set<StorageShape>({
     [STORAGE_TRAILS_KEY]: trails,
   });
 };
 
-export const onSavedConfigChange = (
+export const onSavedTrailsChange = (
   callback: (trails: TrailEntry[]) => void
 ) => {
   return onStorageChange(STORAGE_TRAILS_KEY, (change) => {

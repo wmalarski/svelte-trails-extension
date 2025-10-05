@@ -1,15 +1,15 @@
 import { getContext, setContext } from "svelte";
 
-const key = "origin";
-
 export type OriginContextState = {
   origin?: string;
 };
 
+const ORIGIN_CONTEXT_KEY = "origin";
+
 export const setOriginContext = (context: OriginContextState) => {
-  setContext(key, context);
+  setContext(ORIGIN_CONTEXT_KEY, context);
 };
 
 export const getOriginContext = () => {
-  return getContext(key) as OriginContextState;
+  return getContext(ORIGIN_CONTEXT_KEY) as OriginContextState;
 };
