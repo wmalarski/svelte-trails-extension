@@ -17,5 +17,5 @@
     <TrailsList />
   </TrailsProvider>
 {:else}
-  <p>{$_("page_title")}</p>
+  <p>{$_("incorect_site")}</p>
 {/if}

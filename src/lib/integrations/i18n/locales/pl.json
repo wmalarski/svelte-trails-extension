@@ -1,5 +1,10 @@
 {
-  "page_title": "Page title",
-  "sign_in": "Sign in",
-  "sign_up": "Sign up"
+  "incorect_site": "Niepoprawna strona",
+  "trails": {
+    "add_description": "Zapisz wybrany szlak",
+    "add_trail": "Dodaj szlak",
+    "date_label": "Data przejścia szlaku",
+    "name_description": "Wpisz opis szlaku",
+    "name_label": "Opis szlaku"
+  }
 }
