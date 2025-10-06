@@ -8,6 +8,7 @@
   import { decode } from "decode-formdata";
   import { _ } from "svelte-i18n";
   import * as v from "valibot";
+  import ParticipantsCombobox from "../participants/participants-combobox.svelte";
   import { getTrailsContext } from "./trails-context.svelte";
 
   const trailsContext = getTrailsContext();
@@ -56,6 +57,7 @@
       <div class="grid gap-2">
         <Label for="email">Email</Label>
         <Input id="email" type="email" placeholder="m@example.com" required />
+        <ParticipantsCombobox />
       </div>
       <div class="grid gap-2">
         <Label for="date">{$_("trails.date_label")}</Label>
