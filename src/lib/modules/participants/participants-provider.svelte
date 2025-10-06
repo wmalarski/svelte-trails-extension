@@ -1,19 +1,19 @@
 <script lang="ts">
   import { type Snippet } from "svelte";
   import {
-    createTrailsContext,
-    setTrailsContext,
-  } from "./trails-context.svelte";
+    createParticipantsContext,
+    setParticipantsContext,
+  } from "./participants-context.svelte";
 
   interface Props {
     children: Snippet;
   }
 
-  let context = createTrailsContext();
+  let context = createParticipantsContext();
 
   const { children }: Props = $props();
 
-  setTrailsContext(context);
+  setParticipantsContext(context);
 </script>
 
 {@render children()}

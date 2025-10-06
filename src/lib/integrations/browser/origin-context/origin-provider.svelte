@@ -1,10 +1,7 @@
 <script lang="ts">
   import { onMount, type Snippet } from "svelte";
-  import { getCurrentOrigin, onCurrentUrlChange } from "../tabs.js";
-  import {
-    setOriginContext,
-    type OriginContextState,
-  } from "./origin-context.js";
+  import { getCurrentOrigin, onCurrentUrlChange } from "../tabs";
+  import { setOriginContext, type OriginContextState } from "./origin-context";
 
   interface Props {
     children: Snippet;
