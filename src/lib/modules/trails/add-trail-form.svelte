@@ -7,6 +7,9 @@
   import type { FormSubmitEvent } from "$lib/utils";
   import { decode } from "decode-formdata";
   import * as v from "valibot";
+  import { getTrailsContext } from "./trails-context.svelte";
+
+  const trailsContext = getTrailsContext();
 
   const onSubmit = async (event: FormSubmitEvent) => {
     event.preventDefault();
@@ -27,7 +30,7 @@
       return;
     }
 
-    console.log({ parsed, url });
+    await trailsContext.add({ ...parsed.output, url });
   };
 </script>
 
@@ -47,18 +50,6 @@
         <div class="grid gap-2">
           <Label for="email">Email</Label>
           <Input id="email" type="email" placeholder="m@example.com" required />
-        </div>
-        <div class="grid gap-2">
-          <div class="flex items-center">
-            <Label for="password">Password</Label>
-            <a
-              href="##"
-              class="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-            >
-              Forgot your password?
-            </a>
-          </div>
-          <Input id="password" type="password" required />
         </div>
       </div>
     </form>
