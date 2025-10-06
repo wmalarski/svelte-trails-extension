@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { getOriginContext } from "$lib/integrations/browser/origin-context";
   import { _ } from "svelte-i18n";
+  import { getOriginContext } from "../origin";
   import AddTrailForm from "./add-trail-form.svelte";
   import { MT_WEBSITE_URL } from "./constants";
   import TrailsList from "./trails-list.svelte";

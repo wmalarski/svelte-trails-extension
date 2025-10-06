@@ -1,6 +1,9 @@
 <script lang="ts">
+  import {
+    getCurrentOrigin,
+    onCurrentUrlChange,
+  } from "$lib/integrations/browser/tabs";
   import { onMount, type Snippet } from "svelte";
-  import { getCurrentOrigin, onCurrentUrlChange } from "../tabs";
   import { setOriginContext, type OriginContextState } from "./origin-context";
 
   interface Props {
