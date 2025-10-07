@@ -1,10 +1,14 @@
 {
+  "common": {
+    "not_found": "Brak wyników"
+  },
   "incorect_site": "Niepoprawna strona",
   "trails": {
     "add_description": "Zapisz wybrany szlak",
     "add_trail": "Dodaj szlak",
     "date_label": "Data przejścia szlaku",
     "name_description": "Wpisz opis szlaku",
-    "name_label": "Opis szlaku"
+    "name_label": "Opis szlaku",
+    "participant_search_label": "Wyszukaj uczestników"
   }
 }

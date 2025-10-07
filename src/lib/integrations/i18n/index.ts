@@ -2,9 +2,11 @@ import { addMessages, getLocaleFromNavigator, init } from "svelte-i18n";
 
 import pl from "./locales/pl.json";
 
-addMessages("pl", pl);
+export const DEFAULT_LOCALE = "pl";
+
+addMessages(DEFAULT_LOCALE, pl);
 
 init({
-  fallbackLocale: "pl",
+  fallbackLocale: DEFAULT_LOCALE,
   initialLocale: getLocaleFromNavigator(),
 });

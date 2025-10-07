@@ -1,4 +1,7 @@
-import { onStorageChange } from "$lib/integrations/browser/storage";
+import {
+  objectToArray,
+  onStorageChange,
+} from "$lib/integrations/browser/storage";
 
 const STORAGE_PARTICIPANT_KEY = "participant";
 
@@ -10,7 +13,7 @@ export const getSavedParticipants = async () => {
   const data = await chrome.storage.local.get<StorageShape>(
     STORAGE_PARTICIPANT_KEY
   );
-  return data[STORAGE_PARTICIPANT_KEY] ?? [];
+  return objectToArray(data[STORAGE_PARTICIPANT_KEY]) ?? [];
 };
 
 export const setSavedParticipants = (participants: string[]) => {
@@ -23,6 +26,6 @@ export const onSavedParticipantsChange = (
   callback: (participants: string[]) => void
 ) => {
   return onStorageChange(STORAGE_PARTICIPANT_KEY, (change) => {
-    callback(change.newValue as string[]);
+    callback(objectToArray(change.newValue) as string[]);
   });
 };

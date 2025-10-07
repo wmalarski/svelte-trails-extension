@@ -1,52 +1,56 @@
 <script lang="ts">
   import { Button } from "$lib/components/ui/button";
-  import * as Command from "$lib/components/ui/command";
   import * as Popover from "$lib/components/ui/popover";
-  import { cn } from "$lib/utils";
-  import CheckIcon from "@lucide/svelte/icons/check";
+  import { DEFAULT_LOCALE } from "$lib/integrations/i18n";
   import ChevronsUpDownIcon from "@lucide/svelte/icons/chevrons-up-down";
   import { tick } from "svelte";
+  import { locale } from "svelte-i18n";
+  import ParticipantsCommand from "./participants-command.svelte";
+  import { getParticipantsContext } from "./participants-context.svelte";
 
-  const frameworks = [
-    {
-      value: "sveltekit",
-      label: "SvelteKit",
-    },
-    {
-      value: "next.js",
-      label: "Next.js",
-    },
-    {
-      value: "nuxt.js",
-      label: "Nuxt.js",
-    },
-    {
-      value: "remix",
-      label: "Remix",
-    },
-    {
-      value: "astro",
-      label: "Astro",
-    },
-  ];
+  const participantsContext = getParticipantsContext();
 
   let open = $state(false);
-  let value = $state("");
+  let values = $state<string[]>([]);
   let triggerRef = $state<HTMLButtonElement>(null!);
 
-  const selectedValue = $derived(
-    frameworks.find((f) => f.value === value)?.label
-  );
+  const selectedText = $derived.by(() => {
+    const localeValue = $locale ?? DEFAULT_LOCALE;
+    const formatter = new Intl.ListFormat(localeValue, {
+      style: "long",
+      type: "conjunction",
+    });
+
+    console.log(
+      "participantsContext.participants",
+      participantsContext.participants
+    );
+    const selectedValues = (participantsContext.participants ?? []).filter(
+      (participant) => values.includes(participant)
+    );
+
+    return formatter.format(selectedValues);
+  });
 
   // We want to refocus the trigger button when the user selects
   // an item from the list so users can continue navigating the
   // rest of the form with the keyboard.
-  function closeAndFocusTrigger() {
+  const closeAndFocusTrigger = () => {
     open = false;
     tick().then(() => {
       triggerRef.focus();
     });
-  }
+  };
+
+  const onSelect = (clickedParticipant: string) => {
+    const index = values.indexOf(clickedParticipant);
+    if (index < 0) {
+      values.push(clickedParticipant);
+    } else {
+      values.splice(index, 1);
+    }
+    closeAndFocusTrigger();
+  };
 </script>
 
 <Popover.Root bind:open>
@@ -59,33 +63,12 @@
         role="combobox"
         aria-expanded={open}
       >
-        {selectedValue || "Select a framework..."}
+        {selectedText || "Select a framework..."}
         <ChevronsUpDownIcon class="opacity-50" />
       </Button>
     {/snippet}
   </Popover.Trigger>
   <Popover.Content class="w-[200px] p-0">
-    <Command.Root>
-      <Command.Input placeholder="Search framework..." />
-      <Command.List>
-        <Command.Empty>No framework found.</Command.Empty>
-        <Command.Group value="frameworks">
-          {#each frameworks as framework (framework.value)}
-            <Command.Item
-              value={framework.value}
-              onSelect={() => {
-                value = framework.value;
-                closeAndFocusTrigger();
-              }}
-            >
-              <CheckIcon
-                class={cn(value !== framework.value && "text-transparent")}
-              />
-              {framework.label}
-            </Command.Item>
-          {/each}
-        </Command.Group>
-      </Command.List>
-    </Command.Root>
+    <ParticipantsCommand {onSelect} selectedParticipant={values} />
   </Popover.Content>
 </Popover.Root>

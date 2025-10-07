@@ -19,3 +19,7 @@ export type WithElementRef<T, U extends HTMLElement = HTMLElement> = T & {
 export type FormSubmitEvent = SubmitEvent & {
   currentTarget: EventTarget & HTMLFormElement;
 };
+
+export type InputKeyboardEvent = KeyboardEvent & {
+  currentTarget: EventTarget & HTMLInputElement;
+};
