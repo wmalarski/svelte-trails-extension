@@ -17,13 +17,19 @@ type StorageShape = {
   [STORAGE_TRAILS_KEY]: TrailEntry[];
 };
 
+const normalizeStorageTrails = (trails: TrailEntry[]) => {
+  return objectToArray(
+    trails.map<TrailEntry>((entry) => ({
+      ...entry,
+      participants: objectToArray(entry.participants),
+    }))
+  );
+};
+
 export const getSavedTrails = async () => {
   const data = await chrome.storage.local.get<StorageShape>(STORAGE_TRAILS_KEY);
   const trails = data[STORAGE_TRAILS_KEY] ?? [];
-  return trails.map<TrailEntry>((entry) => ({
-    ...entry,
-    participants: objectToArray(entry.participants),
-  }));
+  return normalizeStorageTrails(trails);
 };
 
 export const setSavedTrails = (trails: TrailEntry[]) => {
@@ -36,6 +42,7 @@ export const onSavedTrailsChange = (
   callback: (trails: TrailEntry[]) => void
 ) => {
   return onStorageChange(STORAGE_TRAILS_KEY, (change) => {
-    callback(change.newValue as TrailEntry[]);
+    const trails = change.newValue as TrailEntry[];
+    callback(normalizeStorageTrails(trails));
   });
 };

@@ -19,14 +19,22 @@
     const formData = new FormData(event.currentTarget);
     const url = await getCurrentUrl();
 
+    const decoded = decode(formData, { dates: ["date"] });
     const parsed = await v.safeParseAsync(
       v.object({
         name: v.string(),
-        participants: v.array(v.string()),
+        participants: v.pipe(
+          v.string(),
+          v.transform((input) =>
+            input.split(",").filter((value) => value.length > 0)
+          )
+        ),
         date: v.date(),
       }),
-      decode(formData, { arrays: ["values"], dates: ["date"] })
+      decoded
     );
+
+    console.log("[parsed]", { parsed, url, decoded });
 
     if (!parsed.success || !url) {
       return;
@@ -36,7 +44,7 @@
   };
 </script>
 
-<Card.Root class="w-full max-w-sm">
+<Card.Root class="w-full">
   <Card.Header>
     <Card.Title>{$_("trails.add_trail")}</Card.Title>
     <Card.Description>
@@ -46,26 +54,28 @@
   <Card.Content>
     <form onsubmit={onSubmit} class="flex flex-col gap-6" id="add-trail">
       <div class="grid gap-2">
-        <Label for="text">{$_("trails.name_label")}</Label>
+        <Label for="name">{$_("trails.name_label")}</Label>
         <Input
           id="name"
           type="text"
+          name="name"
           placeholder={$_("trails.name_description")}
           required
         />
       </div>
       <div class="grid gap-2">
-        <Label for="email">Email</Label>
-        <Input id="email" type="email" placeholder="m@example.com" required />
-        <ParticipantsCombobox />
+        <Label for="participants">{$_("trails.participants_label")}</Label>
+        <ParticipantsCombobox id="participants" name="participants" />
       </div>
       <div class="grid gap-2">
         <Label for="date">{$_("trails.date_label")}</Label>
-        <Input id="date" type="date" required />
+        <Input name="date" id="date" type="date" required />
       </div>
     </form>
   </Card.Content>
   <Card.Footer class="flex-col gap-2">
-    <Button type="submit" class="w-full">Login</Button>
+    <Button form="add-trail" type="submit" class="w-full">
+      {$_("common.add")}
+    </Button>
   </Card.Footer>
 </Card.Root>

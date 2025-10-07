@@ -4,7 +4,6 @@
   import AddTrailForm from "./add-trail-form.svelte";
   import { MT_WEBSITE_URL } from "./constants";
   import TrailsList from "./trails-list.svelte";
-  import TrailsProvider from "./trails-provider.svelte";
 
   const originContext = getOriginContext();
 </script>
@@ -12,10 +11,12 @@
 <span>{originContext.origin}</span>
 
 {#if originContext.origin === MT_WEBSITE_URL}
-  <TrailsProvider>
+  <main class="flex flex-col gap-4 p-2">
     <AddTrailForm />
     <TrailsList />
-  </TrailsProvider>
+  </main>
 {:else}
-  <p>{$_("incorect_site")}</p>
+  <main>
+    <p>{$_("incorect_site")}</p>
+  </main>
 {/if}

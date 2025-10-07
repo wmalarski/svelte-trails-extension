@@ -4,9 +4,16 @@
   import { DEFAULT_LOCALE } from "$lib/integrations/i18n";
   import ChevronsUpDownIcon from "@lucide/svelte/icons/chevrons-up-down";
   import { tick } from "svelte";
-  import { locale } from "svelte-i18n";
+  import { _, locale } from "svelte-i18n";
   import ParticipantsCommand from "./participants-command.svelte";
   import { getParticipantsContext } from "./participants-context.svelte";
+
+  interface Props {
+    name: string;
+    id: string;
+  }
+
+  const { name, id }: Props = $props();
 
   const participantsContext = getParticipantsContext();
 
@@ -21,11 +28,7 @@
       type: "conjunction",
     });
 
-    console.log(
-      "participantsContext.participants",
-      participantsContext.participants
-    );
-    const selectedValues = (participantsContext.participants ?? []).filter(
+    const selectedValues = participantsContext.participants.filter(
       (participant) => values.includes(participant)
     );
 
@@ -53,22 +56,24 @@
   };
 </script>
 
+<input type="hidden" {name} value={values.join(",")} />
 <Popover.Root bind:open>
   <Popover.Trigger bind:ref={triggerRef}>
     {#snippet child({ props })}
       <Button
         {...props}
         variant="outline"
-        class="w-[200px] justify-between"
+        {id}
+        class="justify-between"
         role="combobox"
         aria-expanded={open}
       >
-        {selectedText || "Select a framework..."}
+        {selectedText || $_("participant.button_label")}
         <ChevronsUpDownIcon class="opacity-50" />
       </Button>
     {/snippet}
   </Popover.Trigger>
-  <Popover.Content class="w-[200px] p-0">
+  <Popover.Content class="p-0">
     <ParticipantsCommand {onSelect} selectedParticipant={values} />
   </Popover.Content>
 </Popover.Root>

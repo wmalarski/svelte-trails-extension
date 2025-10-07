@@ -28,14 +28,14 @@
 
 <Command.Root>
   <Command.Input
-    placeholder={$_("trails.participant_search_label")}
+    placeholder={$_("participant.search_label")}
     name="participant"
     onkeyup={onCommandKeyUp}
   />
   <Command.List>
     <Command.Empty>{$_("common.not_found")}</Command.Empty>
     <Command.Group value="participants">
-      {#each participantsContext.participants as participant (participant)}
+      {#each participantsContext.participants as participant}
         <Command.Item
           value={participant}
           onSelect={() => onSelect(participant)}

@@ -26,6 +26,6 @@ export const onSavedParticipantsChange = (
   callback: (participants: string[]) => void
 ) => {
   return onStorageChange(STORAGE_PARTICIPANT_KEY, (change) => {
-    callback(objectToArray(change.newValue) as string[]);
+    callback((objectToArray(change.newValue) ?? []) as string[]);
   });
 };
