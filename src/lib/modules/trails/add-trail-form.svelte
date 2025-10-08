@@ -23,22 +23,25 @@
     const parsed = await v.safeParseAsync(
       v.object({
         name: v.string(),
+        date: v.pipe(
+          v.date(),
+          v.transform((v) => v.toJSON())
+        ),
         participants: v.pipe(
           v.string(),
           v.transform((input) =>
             input.split(",").filter((value) => value.length > 0)
           )
         ),
-        date: v.date(),
       }),
       decoded
     );
 
-    console.log("[parsed]", { parsed, url, decoded });
-
     if (!parsed.success || !url) {
       return;
     }
+
+    console.log("[parsed]", parsed.output.date);
 
     await trailsContext.add({ ...parsed.output, url });
   };
@@ -46,7 +49,7 @@
 
 <Card.Root class="w-full">
   <Card.Header>
-    <Card.Title>{$_("trails.add_trail")}</Card.Title>
+    <Card.Title class="text-lg">{$_("trails.add_trail")}</Card.Title>
     <Card.Description>
       {$_("trails.add_description")}
     </Card.Description>

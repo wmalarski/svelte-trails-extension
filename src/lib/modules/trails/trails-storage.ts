@@ -7,7 +7,7 @@ export type TrailEntry = {
   id: number;
   name: string;
   participants: string[];
-  date: Date;
+  date: string;
   url: string;
 };
 
@@ -22,7 +22,7 @@ const normalizeStorageTrails = (trails: TrailEntry[]) => {
     trails.map<TrailEntry>((entry) => ({
       ...entry,
       participants: objectToArray(entry.participants),
-    })),
+    }))
   );
 };
 
@@ -39,7 +39,7 @@ export const setSavedTrails = (trails: TrailEntry[]) => {
 };
 
 export const onSavedTrailsChange = (
-  callback: (trails: TrailEntry[]) => void,
+  callback: (trails: TrailEntry[]) => void
 ) => {
   return onStorageChange(STORAGE_TRAILS_KEY, (change) => {
     const trails = change.newValue as TrailEntry[];

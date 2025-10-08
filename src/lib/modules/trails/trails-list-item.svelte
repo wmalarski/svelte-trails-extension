@@ -1,6 +1,9 @@
 <script lang="ts">
   import Button from "$lib/components/ui/button/button.svelte";
-  import { _ } from "svelte-i18n";
+  import * as Card from "$lib/components/ui/card";
+  import { formatDate } from "$lib/integrations/i18n/formatters/format-date";
+  import { formatList } from "$lib/integrations/i18n/formatters/format-list";
+  import { _, locale } from "svelte-i18n";
   import { getTrailsContext } from "./trails-context.svelte";
   import type { TrailEntry } from "./trails-storage";
 
@@ -18,6 +21,23 @@
 </script>
 
 <li>
-  {JSON.stringify(trail, null, 2)}
-  <Button onclick={onDeleteClick}>{$_("trails.delete_trail")}</Button>
+  <Card.Root class="w-full">
+    <Card.Header>
+      <Card.Description class="text-xs">
+        {formatDate(trail.date, $locale)}
+      </Card.Description>
+      <Card.Title class="text-lg">{trail.name}</Card.Title>
+      <Card.Description>
+        {formatList(trail.participants, $locale)}
+      </Card.Description>
+    </Card.Header>
+    <Card.Content>
+      {JSON.stringify(trail.url, null, 2)}
+    </Card.Content>
+    <Card.Footer class="flex-col gap-2 items-end">
+      <Button variant="destructive" onclick={onDeleteClick}>
+        {$_("trails.delete_trail")}
+      </Button>
+    </Card.Footer>
+  </Card.Root>
 </li>

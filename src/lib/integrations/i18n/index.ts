@@ -1,8 +1,6 @@
 import { addMessages, getLocaleFromNavigator, init } from "svelte-i18n";
-
+import { DEFAULT_LOCALE } from "./constants";
 import pl from "./locales/pl.json";
-
-export const DEFAULT_LOCALE = "pl";
 
 addMessages(DEFAULT_LOCALE, pl);
 

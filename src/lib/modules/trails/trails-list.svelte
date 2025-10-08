@@ -5,7 +5,7 @@
   const trailsContext = getTrailsContext();
 </script>
 
-<ul>
+<ul class="flex flex-col gap-2">
   {#each trailsContext.trails as trail (trail.id)}
     <TrailsListItem {trail} />
   {/each}

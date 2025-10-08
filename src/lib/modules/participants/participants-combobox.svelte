@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Button } from "$lib/components/ui/button";
   import * as Popover from "$lib/components/ui/popover";
-  import { DEFAULT_LOCALE } from "$lib/integrations/i18n";
+  import { formatList } from "$lib/integrations/i18n/formatters/format-list";
   import ChevronsUpDownIcon from "@lucide/svelte/icons/chevrons-up-down";
   import { tick } from "svelte";
   import { _, locale } from "svelte-i18n";
@@ -22,17 +22,10 @@
   let triggerRef = $state<HTMLButtonElement>(null!);
 
   const selectedText = $derived.by(() => {
-    const localeValue = $locale ?? DEFAULT_LOCALE;
-    const formatter = new Intl.ListFormat(localeValue, {
-      style: "long",
-      type: "conjunction",
-    });
-
     const selectedValues = participantsContext.participants.filter(
       (participant) => values.includes(participant)
     );
-
-    return formatter.format(selectedValues);
+    return formatList(selectedValues, $locale);
   });
 
   // We want to refocus the trigger button when the user selects
