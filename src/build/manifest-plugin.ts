@@ -2,8 +2,26 @@ import type { UserConfig } from "vite";
 
 export const manifestPlugin = (): NonNullable<UserConfig["plugins"]>[0] => {
   return {
-    generateBundle(_options) {
+    generateBundle(_options, bundle) {
+      const assets = Object.values(bundle);
+      const backgroundFilename = assets.find(
+        (asset) => asset.name === "background"
+      )?.fileName;
+      const contentFilename = assets.find(
+        (asset) => asset.name === "content"
+      )?.fileName;
+
       const manifest = {
+        background: {
+          service_worker: backgroundFilename,
+          type: "module",
+        },
+        content_scripts: [
+          {
+            js: [contentFilename],
+            matches: ["file:///*"],
+          },
+        ],
         description: "",
         host_permissions: ["https://*/*", "http://*/*"],
         icons: {
@@ -14,7 +32,7 @@ export const manifestPlugin = (): NonNullable<UserConfig["plugins"]>[0] => {
         },
         manifest_version: 3,
         name: "Svelte Trails Extension",
-        permissions: ["sidePanel", "activeTab", "storage"],
+        permissions: ["sidePanel", "activeTab", "storage", "scripting"],
         side_panel: {
           default_path: "index.html",
         },

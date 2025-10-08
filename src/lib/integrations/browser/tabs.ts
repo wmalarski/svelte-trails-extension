@@ -2,11 +2,15 @@ const getUrlOrigin = (url: string) => {
   return new URL(url).origin;
 };
 
-export const getCurrentUrl = async () => {
+export const getCurrentTab = async () => {
   const args = { active: true, lastFocusedWindow: true };
   const tabs = await chrome.tabs.query(args);
-  const url = tabs[0]?.url;
-  return url;
+  return tabs[0];
+};
+
+export const getCurrentUrl = async () => {
+  const tab = await getCurrentTab();
+  return tab?.url;
 };
 
 export const getCurrentOrigin = async () => {

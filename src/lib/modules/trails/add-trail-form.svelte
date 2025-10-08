@@ -3,6 +3,7 @@
   import * as Card from "$lib/components/ui/card";
   import { Input } from "$lib/components/ui/input";
   import { Label } from "$lib/components/ui/label";
+  import { sendMessageToTab } from "$lib/integrations/browser/events";
   import { getCurrentUrl } from "$lib/integrations/browser/tabs";
   import type { FormSubmitEvent } from "$lib/utils";
   import { decode } from "decode-formdata";
@@ -43,7 +44,13 @@
 
     await trailsContext.add({ ...parsed.output, url });
   };
+
+  const onButtonClick = () => {
+    sendMessageToTab();
+  };
 </script>
+
+<Button onclick={onButtonClick}>Click</Button>
 
 <Card.Root class="w-full">
   <Card.Header>
