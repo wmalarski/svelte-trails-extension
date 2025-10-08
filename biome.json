@@ -22,6 +22,9 @@
     "globals": ["chrome"]
   },
   "linter": {
+    "domains": {
+      "tailwind": "recommended"
+    },
     "enabled": true,
     "rules": {
       "a11y": {
