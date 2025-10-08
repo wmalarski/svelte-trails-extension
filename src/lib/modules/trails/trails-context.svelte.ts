@@ -12,7 +12,7 @@ export const createTrailsContext = () => {
   const add = async (config: Omit<TrailEntry, "id">) => {
     const maxId = trails.reduce(
       (previous, current) => Math.max(previous, current.id),
-      0
+      0,
     );
     const newEntry = { id: maxId + 1, ...config };
     const updated = [newEntry, ...trails];
@@ -21,7 +21,7 @@ export const createTrailsContext = () => {
 
   const update = async (config: TrailEntry) => {
     const updated = trails.map((entry) =>
-      entry.id === config.id ? config : entry
+      entry.id === config.id ? config : entry,
     );
     await setSavedTrails(updated);
   };

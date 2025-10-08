@@ -4,6 +4,7 @@
   import { formatDate } from "$lib/integrations/i18n/formatters/format-date";
   import { formatList } from "$lib/integrations/i18n/formatters/format-list";
   import { _, locale } from "svelte-i18n";
+  import TrailWidget from "./trail-widget.svelte";
   import { getTrailsContext } from "./trails-context.svelte";
   import type { TrailEntry } from "./trails-storage";
 
@@ -32,7 +33,7 @@
       </Card.Description>
     </Card.Header>
     <Card.Content>
-      {JSON.stringify(trail.url, null, 2)}
+      <TrailWidget {trail} />
     </Card.Content>
     <Card.Footer class="flex-col gap-2 items-end">
       <Button variant="destructive" onclick={onDeleteClick}>

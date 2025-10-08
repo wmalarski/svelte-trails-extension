@@ -2,7 +2,7 @@ import { DEFAULT_LOCALE } from "../constants";
 
 export const formatDate = (
   date: Date | number | string,
-  locale?: string | null
+  locale?: string | null,
 ) => {
   const localeValue = locale ?? DEFAULT_LOCALE;
 
