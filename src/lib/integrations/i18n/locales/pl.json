@@ -1,7 +1,13 @@
 {
   "common": {
     "add": "Dodaj",
+    "cancel": "Anuluj",
+    "continue": "Dalej",
     "not_found": "Brak wyników"
+  },
+  "confirm_dialog": {
+    "description": "Akcja nie jest odwracalna",
+    "title": "Potwierdź akcje?"
   },
   "incorect_site": "Niepoprawna strona",
   "participant": {

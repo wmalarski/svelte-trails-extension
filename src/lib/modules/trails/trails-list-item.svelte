@@ -1,6 +1,7 @@
 <script lang="ts">
   import Button from "$lib/components/ui/button/button.svelte";
   import * as Card from "$lib/components/ui/card";
+  import ConfirmDialog from "$lib/components/ui/confirm-dialog/confirm-dialog.svelte";
   import { formatDate } from "$lib/integrations/i18n/formatters/format-date";
   import { formatList } from "$lib/integrations/i18n/formatters/format-list";
   import { _, locale } from "svelte-i18n";
@@ -16,7 +17,7 @@
 
   const trailsContext = getTrailsContext();
 
-  const onDeleteClick = () => {
+  const onContinue = () => {
     trailsContext.remove(trail.id);
   };
 </script>
@@ -36,9 +37,13 @@
       <TrailWidget {trail} />
     </Card.Content>
     <Card.Footer class="flex-col gap-2 items-end">
-      <Button variant="destructive" onclick={onDeleteClick}>
-        {$_("trails.delete_trail")}
-      </Button>
+      <ConfirmDialog {onContinue}>
+        {#snippet child({ props })}
+          <Button {...props} variant="destructive">
+            {$_("trails.delete_trail")}
+          </Button>
+        {/snippet}
+      </ConfirmDialog>
     </Card.Footer>
   </Card.Root>
 </li>

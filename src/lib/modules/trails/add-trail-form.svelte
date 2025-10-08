@@ -41,8 +41,6 @@
       return;
     }
 
-    console.log("[parsed]", parsed.output.date);
-
     await trailsContext.add({ ...parsed.output, url });
   };
 </script>
