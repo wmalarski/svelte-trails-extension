@@ -1,11 +1,21 @@
 import { getCurrentTab } from "./tabs";
 
-function injectedFunction() {
+async function injectedFunction() {
   document.body.style.backgroundColor = "orange";
 
-  const query = document.querySelector("form[action^='/map']");
+  const detailsLink = document.querySelector(
+    "[data-track-event='Route details,Map widget']"
+  ) as HTMLAnchorElement;
 
-  console.log("[query]", query);
+  detailsLink.click();
+
+  await new Promise((resolve) => setTimeout(() => resolve({}), 1000));
+
+  const form = document.querySelector(
+    "form[action^='/map']"
+  ) as HTMLFormElement;
+
+  return form.action;
 }
 
 export const sendMessageToTab = async () => {
@@ -17,10 +27,14 @@ export const sendMessageToTab = async () => {
     return;
   }
 
-  chrome.scripting.executeScript({
+  const result = await chrome.scripting.executeScript({
     func: injectedFunction,
     target: { tabId: tab.id },
   });
+
+  const first = result[0]?.result;
+
+  console.log("[result]", first);
 
   // try {
   //   chrome.tabs.sendMessage(tab.id, { text: "report_back" }, (response) => {
