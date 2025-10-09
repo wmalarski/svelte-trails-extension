@@ -11,9 +11,9 @@ type StorageShape = {
 
 export const getSavedParticipants = async () => {
   const data = await chrome.storage.local.get<StorageShape>(
-    STORAGE_PARTICIPANT_KEY,
+    STORAGE_PARTICIPANT_KEY
   );
-  return objectToArray(data[STORAGE_PARTICIPANT_KEY]) ?? [];
+  return objectToArray(data[STORAGE_PARTICIPANT_KEY] ?? []);
 };
 
 export const setSavedParticipants = (participants: string[]) => {
@@ -23,9 +23,9 @@ export const setSavedParticipants = (participants: string[]) => {
 };
 
 export const onSavedParticipantsChange = (
-  callback: (participants: string[]) => void,
+  callback: (participants: string[]) => void
 ) => {
   return onStorageChange(STORAGE_PARTICIPANT_KEY, (change) => {
-    callback((objectToArray(change.newValue) ?? []) as string[]);
+    callback(objectToArray(change.newValue ?? []) as string[]);
   });
 };

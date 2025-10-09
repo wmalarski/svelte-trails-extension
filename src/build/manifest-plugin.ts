@@ -1,5 +1,7 @@
 import type { UserConfig } from "vite";
 
+const MAP_URL = "https://mapa-turystyczna.pl/*";
+
 export const manifestPlugin = (): NonNullable<UserConfig["plugins"]>[0] => {
   return {
     generateBundle(_options, bundle) {
@@ -14,12 +16,11 @@ export const manifestPlugin = (): NonNullable<UserConfig["plugins"]>[0] => {
       const manifest = {
         background: {
           service_worker: backgroundFilename,
-          type: "module",
         },
         content_scripts: [
           {
             js: [contentFilename],
-            matches: ["file:///*"],
+            matches: [MAP_URL],
           },
         ],
         description: "",

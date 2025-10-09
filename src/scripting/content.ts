@@ -1,21 +1,25 @@
 console.log("CONTENT");
 
-chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
-  console.log("CONTENT", msg);
-  if (msg.text && msg.text === "report_back") {
-    const element = document.querySelector("form[action^='/map']") as
-      | HTMLFormElement
-      | undefined;
+chrome.runtime.onInstalled.addListener(() => {
+  console.log("CONTENT-chrome.runtime.onInstalled");
 
-    console.log("CONTENT", element);
+  chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
+    console.log("CONTENT", msg);
+    if (msg.text && msg.text === "report_back") {
+      const element = document.querySelector("form[action^='/map']") as
+        | HTMLFormElement
+        | undefined;
 
-    if (!element) {
-      sendResponse("not_found");
-      return;
-    }
+      console.log("CONTENT", element);
 
-    /* Call the specified callback, passing 
+      if (!element) {
+        sendResponse("not_found");
+        return;
+      }
+
+      /* Call the specified callback, passing 
            the web-pages DOM content as argument */
-    sendResponse(element.action);
-  }
+      sendResponse(element.action);
+    }
+  });
 });
