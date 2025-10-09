@@ -3,13 +3,13 @@
   import * as Card from "$lib/components/ui/card";
   import { Input } from "$lib/components/ui/input";
   import { Label } from "$lib/components/ui/label";
-  import { sendMessageToTab } from "$lib/integrations/browser/events";
   import { getCurrentUrl } from "$lib/integrations/browser/tabs";
   import type { FormSubmitEvent } from "$lib/utils";
   import { decode } from "decode-formdata";
   import { _ } from "svelte-i18n";
   import * as v from "valibot";
   import ParticipantsCombobox from "../participants/participants-combobox.svelte";
+  import { getTrailWidgetAction } from "./get-trail-widget-action";
   import { getTrailsContext } from "./trails-context.svelte";
 
   const trailsContext = getTrailsContext();
@@ -45,8 +45,9 @@
     await trailsContext.add({ ...parsed.output, url });
   };
 
-  const onButtonClick = () => {
-    sendMessageToTab();
+  const onButtonClick = async () => {
+    const actionUrl = await getTrailWidgetAction();
+    console.log("[actionUrl]", actionUrl);
   };
 </script>
 

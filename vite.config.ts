@@ -7,13 +7,6 @@ import { manifestPlugin } from "./src/build/manifest-plugin";
 // https://vite.dev/config/
 export default defineConfig({
   build: {
-    rolldownOptions: {
-      input: [
-        "index.html",
-        "src/scripting/background.ts",
-        "src/scripting/content.ts",
-      ],
-    },
     sourcemap: true,
     target: "esnext",
   },
