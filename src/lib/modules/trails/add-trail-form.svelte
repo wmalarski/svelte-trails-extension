@@ -3,7 +3,6 @@
   import * as Card from "$lib/components/ui/card";
   import { Input } from "$lib/components/ui/input";
   import { Label } from "$lib/components/ui/label";
-  import { getCurrentUrl } from "$lib/integrations/browser/tabs";
   import type { FormSubmitEvent } from "$lib/utils";
   import { decode } from "decode-formdata";
   import { _ } from "svelte-i18n";
@@ -18,9 +17,11 @@
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
-    const url = await getCurrentUrl();
+
+    const trailId = await getTrailWidgetAction();
 
     const decoded = decode(formData, { dates: ["date"] });
+
     const parsed = await v.safeParseAsync(
       v.object({
         name: v.string(),
@@ -38,11 +39,11 @@
       decoded
     );
 
-    if (!parsed.success || !url) {
+    if (!parsed.success || !trailId) {
       return;
     }
 
-    await trailsContext.add({ ...parsed.output, url });
+    await trailsContext.add({ ...parsed.output, trailId });
   };
 
   const onButtonClick = async () => {

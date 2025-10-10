@@ -1,40 +1,30 @@
-import { getCurrentTab } from "$lib/integrations/browser/tabs";
-
-const wait = async (time: number) => {
-  await new Promise((resolve) => setTimeout(() => resolve({}), time));
-};
-
-async function injectedFunction() {
-  const detailsLink = document.querySelector(
-    "[data-track-event='Route details,Map widget']"
-  ) as HTMLAnchorElement;
-
-  detailsLink.click();
-
-  await wait(1000);
-
-  const form = document.querySelector(
-    "form[action^='/map']"
-  ) as HTMLFormElement;
-
-  console.log("[form]", form);
-
-  return form.action;
-}
+import { getCurrentUrl } from "$lib/integrations/browser/tabs";
 
 export const getTrailWidgetAction = async () => {
-  const tab = await getCurrentTab();
+  const currentUrl = await getCurrentUrl();
 
-  if (!tab.id) {
+  if (!currentUrl) {
     return;
   }
 
-  const injectionResults = await chrome.scripting.executeScript({
-    func: injectedFunction,
-    target: { tabId: tab.id },
+  const url = new URL(currentUrl);
+  const routeQuery = url.searchParams.get("q") as string;
+  const formData = new FormData();
+
+  formData.set("display_label", "true");
+  formData.set("event_category", "Route details");
+  formData.set("route_query", routeQuery);
+  formData.set("route_type", "v=foot,m=hiking");
+
+  const response = await fetch(`${url.origin}/widget/route`, {
+    body: formData,
+    method: "post",
   });
 
-  const firstAction = injectionResults[0]?.result;
+  const text = await response.text();
 
-  return firstAction;
+  const matches = text.match(/action=(.*)\.html/g);
+  const trailId = matches?.[0].split(/(\/|\.)/).at(-3);
+
+  return trailId;
 };
