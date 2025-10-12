@@ -1,49 +1,24 @@
 <script lang="ts">
   import { Button } from "$lib/components/ui/button";
   import * as Card from "$lib/components/ui/card";
-  import { Input } from "$lib/components/ui/input";
-  import { Label } from "$lib/components/ui/label";
-  import type { FormSubmitEvent } from "$lib/utils";
-  import { decode } from "decode-formdata";
+  import type { ComponentProps } from "svelte";
   import { _ } from "svelte-i18n";
-  import * as v from "valibot";
-  import ParticipantsCombobox from "../participants/participants-combobox.svelte";
+  import TrailForm from "./trail-forms/trail-form.svelte";
   import { getTrailWidgetAction } from "./trail-widget-services";
   import { getTrailsContext } from "./trails-context.svelte";
 
   const trailsContext = getTrailsContext();
 
-  const onSubmit = async (event: FormSubmitEvent) => {
-    event.preventDefault();
-
-    const formData = new FormData(event.currentTarget);
-
+  const onSubmit: ComponentProps<typeof TrailForm>["onSubmit"] = async (
+    data
+  ) => {
     const trailId = await getTrailWidgetAction();
 
-    const decoded = decode(formData, { dates: ["date"] });
-
-    const parsed = await v.safeParseAsync(
-      v.object({
-        name: v.string(),
-        date: v.pipe(
-          v.date(),
-          v.transform((v) => v.toJSON())
-        ),
-        participants: v.pipe(
-          v.string(),
-          v.transform((input) =>
-            input.split(",").filter((value) => value.length > 0)
-          )
-        ),
-      }),
-      decoded
-    );
-
-    if (!parsed.success || !trailId) {
+    if (!trailId) {
       return;
     }
 
-    await trailsContext.add({ ...parsed.output, trailId });
+    await trailsContext.add({ ...data, trailId });
   };
 </script>
 
@@ -55,26 +30,7 @@
     </Card.Description>
   </Card.Header>
   <Card.Content>
-    <form onsubmit={onSubmit} class="flex flex-col gap-6" id="add-trail">
-      <div class="grid gap-2">
-        <Label for="name">{$_("trails.name_label")}</Label>
-        <Input
-          id="name"
-          type="text"
-          name="name"
-          placeholder={$_("trails.name_description")}
-          required
-        />
-      </div>
-      <div class="grid gap-2">
-        <Label for="participants">{$_("trails.participants_label")}</Label>
-        <ParticipantsCombobox id="participants" name="participants" />
-      </div>
-      <div class="grid gap-2">
-        <Label for="date">{$_("trails.date_label")}</Label>
-        <Input name="date" id="date" type="date" required />
-      </div>
-    </form>
+    <TrailForm formId="add-trail" {onSubmit} />
   </Card.Content>
   <Card.Footer class="flex-col gap-2">
     <Button form="add-trail" type="submit" class="w-full">

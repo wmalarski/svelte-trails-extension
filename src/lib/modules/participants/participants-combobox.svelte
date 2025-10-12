@@ -11,14 +11,15 @@
   interface Props {
     name: string;
     id: string;
+    initialValues?: string[];
   }
 
-  const { name, id }: Props = $props();
+  const { name, id, initialValues }: Props = $props();
 
   const participantsContext = getParticipantsContext();
 
   let open = $state(false);
-  let values = $state<string[]>([]);
+  let values = $state<string[]>(initialValues ?? []);
   let triggerRef = $state<HTMLButtonElement>(null!);
 
   const selectedText = $derived.by(() => {
