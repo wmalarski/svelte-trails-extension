@@ -19,9 +19,12 @@
     "add_trail": "Dodaj szlak",
     "date_label": "Data przejścia szlaku",
     "delete_trail": "Usuń",
+    "export_button": "Export",
+    "export_filename": "szlaki",
     "name_description": "Wpisz opis szlaku",
     "name_label": "Opis szlaku",
     "participants_label": "Uczestnicy",
-    "widget_credit": "Trasa: | mapa-turystyczna.pl"
+    "widget_credit": "Trasa: | mapa-turystyczna.pl",
+    "widget_link_label": "Link"
   }
 }

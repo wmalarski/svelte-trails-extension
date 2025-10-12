@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Button } from "$lib/components/ui/button";
+  import { _ } from "svelte-i18n";
   import { getTrailHref } from "./trail-widget-services";
   import { getTrailsContext } from "./trails-context.svelte";
 
@@ -9,9 +10,12 @@
     const columnDelimiter = ";";
     const rowsDelimiter = "\n";
 
-    const header = ["Nazwa", "Data", "Uczestnicy", "Szlak"].join(
-      columnDelimiter
-    );
+    const header = [
+      $_("trails.name_label"),
+      $_("trails.date_label"),
+      $_("trails.participants_label"),
+      $_("trails.widget_link_label"),
+    ].join(columnDelimiter);
 
     const dataRows = trailsContext.trails
       .map((trail) => [
@@ -25,10 +29,10 @@
     const data = [header, ...dataRows].join(rowsDelimiter);
 
     const link = document.createElement("a");
-    link.download = "file.csv";
+    link.download = `${$_("trails.export_filename")}.csv`;
     link.href = encodeURI("data:text/csv," + data);
     link.click();
   };
 </script>
 
-<Button onclick={onClick}>Export</Button>
+<Button onclick={onClick}>{$_("trails.export_button")}</Button>
