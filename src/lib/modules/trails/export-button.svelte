@@ -21,7 +21,7 @@
       .map((trail) => [
         trail.name,
         trail.date,
-        trail.participants.join(" "),
+        trail.participants.join(","),
         getTrailHref(trail.trailId),
       ])
       .map((columns) => columns.join(columnDelimiter));
