@@ -21,6 +21,7 @@
     "delete_trail": "Usuń",
     "name_description": "Wpisz opis szlaku",
     "name_label": "Opis szlaku",
-    "participants_label": "Uczestnicy"
+    "participants_label": "Uczestnicy",
+    "widget_credit": "Trasa: | mapa-turystyczna.pl"
   }
 }

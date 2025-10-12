@@ -45,14 +45,7 @@
 
     await trailsContext.add({ ...parsed.output, trailId });
   };
-
-  const onButtonClick = async () => {
-    const actionUrl = await getTrailWidgetAction();
-    console.log("[actionUrl]", actionUrl);
-  };
 </script>
-
-<Button onclick={onButtonClick}>Click</Button>
 
 <Card.Root class="w-full">
   <Card.Header>

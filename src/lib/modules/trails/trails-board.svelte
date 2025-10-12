@@ -8,8 +8,6 @@
   const originContext = getOriginContext();
 </script>
 
-<span>{originContext.origin}</span>
-
 {#if originContext.origin === MT_WEBSITE_URL}
   <main class="flex flex-col gap-4 p-2">
     <AddTrailForm />
@@ -17,6 +15,7 @@
   </main>
 {:else}
   <main>
+    <span>{originContext.origin}</span>
     <p>{$_("incorect_site")}</p>
   </main>
 {/if}
