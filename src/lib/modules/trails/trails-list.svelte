@@ -1,6 +1,6 @@
 <script lang="ts">
+  import TrailsListItem from "./trail-card/trails-list-item.svelte";
   import { getTrailsContext } from "./trails-context.svelte";
-  import TrailsListItem from "./trails-list-item.svelte";
 
   const trailsContext = getTrailsContext();
 </script>

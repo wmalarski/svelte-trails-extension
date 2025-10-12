@@ -2,8 +2,8 @@
   import ConfirmDialog from "$lib/components/ui/confirm-dialog/confirm-dialog.svelte";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
   import { _ } from "svelte-i18n";
-  import { getTrailsContext } from "./trails-context.svelte";
-  import type { TrailEntry } from "./trails-storage";
+  import { getTrailsContext } from "../trails-context.svelte";
+  import type { TrailEntry } from "../trails-storage";
 
   interface Props {
     trail: TrailEntry;

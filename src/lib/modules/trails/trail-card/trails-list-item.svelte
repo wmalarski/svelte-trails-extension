@@ -5,10 +5,10 @@
   import { formatDate } from "$lib/integrations/i18n/formatters/format-date";
   import { formatList } from "$lib/integrations/i18n/formatters/format-list";
   import { _, locale } from "svelte-i18n";
+  import { getTrailsContext } from "../trails-context.svelte";
+  import type { TrailEntry } from "../trails-storage";
   import TrailDetailsDropdown from "./trail-details-dropdown.svelte";
   import TrailWidget from "./trail-widget.svelte";
-  import { getTrailsContext } from "./trails-context.svelte";
-  import type { TrailEntry } from "./trails-storage";
 
   interface Props {
     trail: TrailEntry;

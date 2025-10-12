@@ -3,8 +3,8 @@
   import {
     getTrailWidgetFrameSource,
     getTrailWidgetHref,
-  } from "./trail-widget-services";
-  import type { TrailEntry } from "./trails-storage";
+  } from "../trail-widget-services";
+  import type { TrailEntry } from "../trails-storage";
 
   interface Props {
     trail: TrailEntry;
