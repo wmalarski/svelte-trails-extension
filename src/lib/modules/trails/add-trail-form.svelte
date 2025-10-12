@@ -8,7 +8,7 @@
   import { _ } from "svelte-i18n";
   import * as v from "valibot";
   import ParticipantsCombobox from "../participants/participants-combobox.svelte";
-  import { getTrailWidgetAction } from "./get-trail-widget-action";
+  import { getTrailWidgetAction } from "./trail-widget-services";
   import { getTrailsContext } from "./trails-context.svelte";
 
   const trailsContext = getTrailsContext();
