@@ -4,12 +4,16 @@
 
   interface Props {
     open: boolean;
-    onOpenChange: (open: boolean) => void;
+    // onOpenChange: (open: boolean) => void;
     onContinue: () => void;
     // child: ComponentProps<typeof AlertDialog.Trigger>["child"];
   }
 
-  const { onContinue, onOpenChange, open }: Props = $props();
+  let { onContinue, open = $bindable() }: Props = $props();
+
+  const onOpenChange = (newOpen: boolean) => {
+    open = newOpen;
+  };
 </script>
 
 <AlertDialog.Root {open} {onOpenChange}>

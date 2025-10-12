@@ -1,10 +1,8 @@
 <script lang="ts">
-  import Button from "$lib/components/ui/button/button.svelte";
   import * as Card from "$lib/components/ui/card";
-  import ConfirmDialog from "$lib/components/ui/confirm-dialog/confirm-dialog.svelte";
   import { formatDate } from "$lib/integrations/i18n/formatters/format-date";
   import { formatList } from "$lib/integrations/i18n/formatters/format-list";
-  import { _, locale } from "svelte-i18n";
+  import { locale } from "svelte-i18n";
   import { getTrailsContext } from "../trails-context.svelte";
   import type { TrailEntry } from "../trails-storage";
   import TrailDetailsDropdown from "./trail-details-dropdown.svelte";
@@ -27,10 +25,6 @@
   const onDeleteClick = () => {
     deleteConfirmOpen = true;
   };
-
-  const onOpenChange = (open: boolean) => {
-    deleteConfirmOpen = open;
-  };
 </script>
 
 <li>
@@ -48,11 +42,5 @@
     <Card.Content>
       <TrailWidget {trail} />
     </Card.Content>
-    <Card.Footer class="flex-col gap-2 items-end">
-      <Button onclick={onDeleteClick} variant="destructive">
-        {$_("trails.delete_trail")}
-      </Button>
-      <ConfirmDialog {onContinue} {onOpenChange} open={deleteConfirmOpen} />
-    </Card.Footer>
   </Card.Root>
 </li>
