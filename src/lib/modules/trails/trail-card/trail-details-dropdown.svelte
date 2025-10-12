@@ -4,6 +4,7 @@
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
   import ElipsisVerticalIcon from "@lucide/svelte/icons/ellipsis-vertical";
   import { _ } from "svelte-i18n";
+  import UpdateTrailDialog from "../trail-forms/update-trail-dialog.svelte";
   import { getTrailsContext } from "../trails-context.svelte";
   import type { TrailEntry } from "../trails-storage";
 
@@ -24,6 +25,12 @@
   const onDeleteClick = () => {
     deleteConfirmOpen = true;
   };
+
+  let updateDialogOpen = $state(false);
+
+  const onUpdateClick = () => {
+    updateDialogOpen = true;
+  };
 </script>
 
 <DropdownMenu.Root>
@@ -40,6 +47,9 @@
   </DropdownMenu.Trigger>
   <DropdownMenu.Content>
     <DropdownMenu.Group>
+      <DropdownMenu.Item onclick={onUpdateClick}>
+        {$_("trails.update_trail")}
+      </DropdownMenu.Item>
       <DropdownMenu.Item onclick={onDeleteClick} variant="destructive">
         {$_("trails.delete_trail")}
       </DropdownMenu.Item>
@@ -48,3 +58,4 @@
 </DropdownMenu.Root>
 
 <ConfirmDialog onContinue={onRemove} bind:open={deleteConfirmOpen} />
+<UpdateTrailDialog bind:open={updateDialogOpen} {trail} />

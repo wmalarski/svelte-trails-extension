@@ -3,7 +3,8 @@
     "add": "Dodaj",
     "cancel": "Anuluj",
     "continue": "Dalej",
-    "not_found": "Brak wyników"
+    "not_found": "Brak wyników",
+    "save": "Zapisz"
   },
   "confirm_dialog": {
     "description": "Akcja nie jest odwracalna",
@@ -25,6 +26,8 @@
     "name_label": "Opis szlaku",
     "open_trail_menu": "Otwórz menu",
     "participants_label": "Uczestnicy",
+    "update_description": "Edytuj wybrany szlak",
+    "update_trail": "Edytuj szlak",
     "widget_credit": "Trasa: | mapa-turystyczna.pl",
     "widget_link_label": "Link"
   }

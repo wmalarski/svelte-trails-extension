@@ -3,7 +3,6 @@
   import { formatDate } from "$lib/integrations/i18n/formatters/format-date";
   import { formatList } from "$lib/integrations/i18n/formatters/format-list";
   import { locale } from "svelte-i18n";
-  import { getTrailsContext } from "../trails-context.svelte";
   import type { TrailEntry } from "../trails-storage";
   import TrailDetailsDropdown from "./trail-details-dropdown.svelte";
   import TrailWidget from "./trail-widget.svelte";
@@ -13,18 +12,6 @@
   }
 
   const { trail }: Props = $props();
-
-  const trailsContext = getTrailsContext();
-
-  const onContinue = () => {
-    trailsContext.remove(trail.id);
-  };
-
-  let deleteConfirmOpen = $state(false);
-
-  const onDeleteClick = () => {
-    deleteConfirmOpen = true;
-  };
 </script>
 
 <li>

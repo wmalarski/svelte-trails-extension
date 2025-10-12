@@ -11,7 +11,7 @@
     name: v.string(),
     date: v.pipe(
       v.date(),
-      v.transform((v) => v.toJSON())
+      v.transform((v) => v.toJSON().split("T")[0])
     ),
     participants: v.pipe(
       v.string(),
