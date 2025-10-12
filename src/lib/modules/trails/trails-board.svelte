@@ -1,9 +1,9 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
   import { getOriginContext } from "../origin";
-  import AddTrailForm from "./add-trail-form.svelte";
   import { MT_WEBSITE_URL } from "./constants";
   import ExportButton from "./export-button.svelte";
+  import AddTrailDialog from "./trail-forms/add-trail-dialog.svelte";
   import TrailsList from "./trails-list.svelte";
 
   const originContext = getOriginContext();
@@ -12,7 +12,7 @@
 {#if originContext.origin === MT_WEBSITE_URL}
   <main class="flex flex-col gap-4 p-2">
     <ExportButton />
-    <AddTrailForm />
+    <AddTrailDialog />
     <TrailsList />
   </main>
 {:else}

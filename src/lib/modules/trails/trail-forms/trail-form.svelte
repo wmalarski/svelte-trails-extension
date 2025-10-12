@@ -45,8 +45,6 @@
     }
 
     onSubmit(parsed.output);
-
-    event.currentTarget.reset();
   };
 </script>
 
