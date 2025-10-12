@@ -5,6 +5,7 @@
   import { formatDate } from "$lib/integrations/i18n/formatters/format-date";
   import { formatList } from "$lib/integrations/i18n/formatters/format-list";
   import { _, locale } from "svelte-i18n";
+  import TrailDetailsDropdown from "./trail-details-dropdown.svelte";
   import TrailWidget from "./trail-widget.svelte";
   import { getTrailsContext } from "./trails-context.svelte";
   import type { TrailEntry } from "./trails-storage";
@@ -20,10 +21,21 @@
   const onContinue = () => {
     trailsContext.remove(trail.id);
   };
+
+  let deleteConfirmOpen = $state(false);
+
+  const onDeleteClick = () => {
+    deleteConfirmOpen = true;
+  };
+
+  const onOpenChange = (open: boolean) => {
+    deleteConfirmOpen = open;
+  };
 </script>
 
 <li>
-  <Card.Root class="w-full">
+  <Card.Root class="w-full relative">
+    <TrailDetailsDropdown {trail} />
     <Card.Header>
       <Card.Description class="text-xs">
         {formatDate(trail.date, $locale)}
@@ -37,13 +49,10 @@
       <TrailWidget {trail} />
     </Card.Content>
     <Card.Footer class="flex-col gap-2 items-end">
-      <ConfirmDialog {onContinue}>
-        {#snippet child({ props })}
-          <Button {...props} variant="destructive">
-            {$_("trails.delete_trail")}
-          </Button>
-        {/snippet}
-      </ConfirmDialog>
+      <Button onclick={onDeleteClick} variant="destructive">
+        {$_("trails.delete_trail")}
+      </Button>
+      <ConfirmDialog {onContinue} {onOpenChange} open={deleteConfirmOpen} />
     </Card.Footer>
   </Card.Root>
 </li>

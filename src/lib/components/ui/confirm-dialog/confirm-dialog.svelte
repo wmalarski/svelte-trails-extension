@@ -1,18 +1,18 @@
 <script lang="ts">
   import * as AlertDialog from "$lib/components/ui/alert-dialog";
-  import type { ComponentProps } from "svelte";
   import { _ } from "svelte-i18n";
 
   interface Props {
+    open: boolean;
+    onOpenChange: (open: boolean) => void;
     onContinue: () => void;
-    child: ComponentProps<typeof AlertDialog.Trigger>["child"];
+    // child: ComponentProps<typeof AlertDialog.Trigger>["child"];
   }
 
-  const { onContinue, child }: Props = $props();
+  const { onContinue, onOpenChange, open }: Props = $props();
 </script>
 
-<AlertDialog.Root>
-  <AlertDialog.Trigger {child} />
+<AlertDialog.Root {open} {onOpenChange}>
   <AlertDialog.Content>
     <AlertDialog.Header>
       <AlertDialog.Title>{$_("confirm_dialog.title")}</AlertDialog.Title>
