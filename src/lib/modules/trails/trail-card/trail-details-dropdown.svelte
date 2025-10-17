@@ -4,10 +4,10 @@
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
   import ElipsisVerticalIcon from "@lucide/svelte/icons/ellipsis-vertical";
   import { _ } from "svelte-i18n";
-  import { MT_WEBSITE_URL } from "../constants";
   import UpdateTrailDialog from "../trail-forms/update-trail-dialog.svelte";
   import { getTrailsContext } from "../trails-context.svelte";
   import type { TrailEntry } from "../trails-storage";
+  import { exportToGpx } from "./export-to-gpx";
 
   interface Props {
     trail: TrailEntry;
@@ -34,10 +34,7 @@
   };
 
   const onExportGpxClick = async () => {
-    const link = document.createElement("a");
-    link.download = `${trail.name}.gpx`;
-    link.href = `${MT_WEBSITE_URL}/route/${trail.trailId}.gpx`;
-    link.click();
+    exportToGpx(trail);
   };
 </script>
 
