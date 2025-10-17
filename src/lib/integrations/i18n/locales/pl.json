@@ -22,6 +22,7 @@
     "delete_trail": "Usuń",
     "export_button": "Export",
     "export_filename": "szlaki",
+    "export_gpx": "Pobierz GPX",
     "name_description": "Wpisz opis szlaku",
     "name_label": "Opis szlaku",
     "open_trail_menu": "Otwórz menu",

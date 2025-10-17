@@ -4,6 +4,7 @@
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
   import ElipsisVerticalIcon from "@lucide/svelte/icons/ellipsis-vertical";
   import { _ } from "svelte-i18n";
+  import { MT_WEBSITE_URL } from "../constants";
   import UpdateTrailDialog from "../trail-forms/update-trail-dialog.svelte";
   import { getTrailsContext } from "../trails-context.svelte";
   import type { TrailEntry } from "../trails-storage";
@@ -31,6 +32,13 @@
   const onUpdateClick = () => {
     updateDialogOpen = true;
   };
+
+  const onExportGpxClick = async () => {
+    const link = document.createElement("a");
+    link.download = `${trail.name}.gpx`;
+    link.href = `${MT_WEBSITE_URL}/route/${trail.trailId}.gpx`;
+    link.click();
+  };
 </script>
 
 <DropdownMenu.Root>
@@ -47,6 +55,9 @@
   </DropdownMenu.Trigger>
   <DropdownMenu.Content>
     <DropdownMenu.Group>
+      <DropdownMenu.Item onclick={onExportGpxClick}>
+        {$_("trails.export_gpx")}
+      </DropdownMenu.Item>
       <DropdownMenu.Item onclick={onUpdateClick}>
         {$_("trails.update_trail")}
       </DropdownMenu.Item>
