@@ -1,11 +1,15 @@
 import type { UserConfig } from "vite";
+import { MT_WEBSITE_URL } from "../lib/integrations/map/constants";
 
 export const manifestPlugin = (): NonNullable<UserConfig["plugins"]>[0] => {
   return {
     generateBundle(_options) {
       const manifest = {
         description: "",
-        host_permissions: ["https://*/*", "http://*/*"],
+        host_permissions: [
+          `https://${MT_WEBSITE_URL}/*`,
+          `http://${MT_WEBSITE_URL}/*`,
+        ],
         icons: {
           "16": "images/16x16.png",
           "32": "images/32x32.png",

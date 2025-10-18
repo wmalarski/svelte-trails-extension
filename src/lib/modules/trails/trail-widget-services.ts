@@ -1,5 +1,5 @@
 import { getCurrentUrl } from "$lib/integrations/browser/tabs";
-import { MT_WEBSITE_URL } from "./constants";
+import { MT_WEBSITE_URL } from "$lib/integrations/map/constants";
 
 export const getTrailWidgetFrameSource = (trailId: string) => {
   return `${MT_WEBSITE_URL}/map/widget/route/h1l0p1/${trailId}.html`;

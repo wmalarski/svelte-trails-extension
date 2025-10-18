@@ -9,6 +9,7 @@
      */
     "allowJs": true,
     "checkJs": true,
+    "composite": true,
     "module": "ESNext",
     "moduleDetection": "force",
     "noEmit": true,

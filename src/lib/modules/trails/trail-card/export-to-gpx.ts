@@ -1,4 +1,4 @@
-import { MT_WEBSITE_URL } from "../constants";
+import { MT_WEBSITE_URL } from "$lib/integrations/map/constants";
 import type { TrailEntry } from "../trails-storage";
 
 export const exportToGpx = async (trail: TrailEntry) => {

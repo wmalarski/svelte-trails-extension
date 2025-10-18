@@ -1,7 +1,7 @@
 <script lang="ts">
+  import { MT_WEBSITE_URL } from "$lib/integrations/map/constants";
   import { _ } from "svelte-i18n";
   import { getOriginContext } from "../origin";
-  import { MT_WEBSITE_URL } from "./constants";
   import ExportButton from "./export-button.svelte";
   import AddTrailDialog from "./trail-forms/add-trail-dialog.svelte";
   import TrailsList from "./trails-list.svelte";
