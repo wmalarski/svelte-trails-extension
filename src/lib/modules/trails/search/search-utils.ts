@@ -15,3 +15,14 @@ export const applyQueryFilter = (trails: TrailEntry[], query: string) => {
       )
   );
 };
+
+export const applySort = (trails: TrailEntry[]) => {
+  const copy = trails.map((trail) => ({
+    time: new Date(trail.date).getTime(),
+    trail,
+  }));
+
+  copy.sort((left, right) => left.time - right.time);
+
+  return copy.map((entry) => entry.trail);
+};

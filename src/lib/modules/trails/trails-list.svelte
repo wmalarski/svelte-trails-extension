@@ -1,6 +1,6 @@
 <script lang="ts">
   import SearchSection from "./search/search-section.svelte";
-  import { applyQueryFilter } from "./search/search-utils";
+  import { applyQueryFilter, applySort } from "./search/search-utils";
   import TrailsListItem from "./trail-card/trails-list-item.svelte";
   import { getTrailsContext } from "./trails-context.svelte";
 
@@ -9,7 +9,9 @@
   let query = $state("");
 
   const filteredTrails = $derived.by(() => {
-    return applyQueryFilter(trailsContext.trails, query);
+    const filtered = applyQueryFilter(trailsContext.trails, query);
+    const sorted = applySort(filtered);
+    return sorted;
   });
 </script>
 
