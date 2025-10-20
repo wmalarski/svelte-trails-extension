@@ -30,3 +30,20 @@ export const onCurrentUrlChange = (callback: () => void) => {
   chrome.tabs.onActivated.addListener(onActivatedListener);
   return () => chrome.tabs.onActivated.removeListener(onActivatedListener);
 };
+
+export const navigateToPage = async (path: string) => {
+  const tab = await getCurrentTab();
+
+  const navigateToPageScript = () => {
+    // const anchor = document.createElement('a')
+    // anchor.href = path
+    window.location.pathname = path;
+  };
+
+  if (tab.id) {
+    chrome.scripting.executeScript({
+      func: navigateToPageScript,
+      target: { tabId: tab.id },
+    });
+  }
+};
