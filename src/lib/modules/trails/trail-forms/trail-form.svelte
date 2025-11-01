@@ -1,6 +1,7 @@
 <script lang="ts">
   import { Input } from "$lib/components/ui/input";
   import { Label } from "$lib/components/ui/label";
+  import { dateSchema } from "$lib/integrations/valibot/date-schema";
   import type { FormSubmitEvent } from "$lib/utils";
   import { decode } from "decode-formdata";
   import { _ } from "svelte-i18n";
@@ -9,10 +10,7 @@
 
   const trailFormSchema = v.object({
     name: v.string(),
-    date: v.pipe(
-      v.date(),
-      v.transform((v) => v.toJSON().split("T")[0])
-    ),
+    date: dateSchema,
     participants: v.pipe(
       v.string(),
       v.transform((input) =>

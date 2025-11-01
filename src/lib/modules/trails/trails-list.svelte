@@ -1,7 +1,13 @@
 <script lang="ts">
   import ExportButton from "./export-button.svelte";
   import SearchSection from "./search/search-section.svelte";
-  import { applyQueryFilter, applySort } from "./search/search-utils";
+  import {
+    applyDatesFilter,
+    applyQueryFilter,
+    applySort,
+    mapToTrailEntry,
+    mapToTrailTimeTuples,
+  } from "./search/search-utils";
   import TrailsListItem from "./trail-card/trails-list-item.svelte";
   import AddTrailDialog from "./trail-forms/add-trail-dialog.svelte";
   import ListPlaceholderAddTrailDialog from "./trail-forms/list-placeholder-add-trail-dialog.svelte";
@@ -10,11 +16,17 @@
   const trailsContext = getTrailsContext();
 
   let query = $state("");
+  let minDate = $state<Date>();
+  let maxDate = $state<Date>();
 
   const filteredTrails = $derived.by(() => {
-    const filtered = applyQueryFilter(trailsContext.trails, query);
-    const sorted = applySort(filtered);
-    return sorted;
+    const queryFiltered = applyQueryFilter(trailsContext.trails, query);
+
+    const tuples = mapToTrailTimeTuples(queryFiltered);
+    const dateFiltered = applyDatesFilter(tuples, minDate, maxDate);
+    const sorted = applySort(dateFiltered);
+
+    return mapToTrailEntry(sorted);
   });
 </script>
 
@@ -25,7 +37,7 @@
     <ExportButton />
     <AddTrailDialog />
   </div>
-  <SearchSection bind:query />
+  <SearchSection bind:query bind:minDate bind:maxDate />
 </header>
 
 <ul class="flex flex-col gap-2 px-2">
