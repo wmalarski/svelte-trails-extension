@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Button } from "$lib/components/ui/button";
+  import DownloadIcon from "@lucide/svelte/icons/download";
   import { _ } from "svelte-i18n";
   import { getTrailHref } from "./trail-widget-services";
   import { getTrailsContext } from "./trails-context.svelte";
@@ -35,4 +36,7 @@
   };
 </script>
 
-<Button onclick={onClick}>{$_("trails.export_button")}</Button>
+<Button onclick={onClick}>
+  <DownloadIcon />
+  {$_("trails.export_button")}
+</Button>

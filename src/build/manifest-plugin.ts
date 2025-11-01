@@ -14,7 +14,7 @@ export const manifestPlugin = (): NonNullable<UserConfig["plugins"]>[0] => {
           "128": "images/128x128.png",
         },
         manifest_version: 3,
-        name: "Svelte Trails Extension",
+        name: "Svelte Trails",
         permissions: ["sidePanel", "activeTab", "storage", "scripting"],
         side_panel: {
           default_path: "index.html",

@@ -11,7 +11,7 @@
 <Dialog.Root bind:open>
   <Dialog.Trigger>
     {#snippet child({ props })}
-      <Button {...props}>
+      <Button variant="outline" class="w-full h-52" {...props}>
         <PlusIcon />
         {$_("trails.add_trail")}
       </Button>
