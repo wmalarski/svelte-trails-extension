@@ -6,10 +6,7 @@ export const manifestPlugin = (): NonNullable<UserConfig["plugins"]>[0] => {
     generateBundle(_options) {
       const manifest = {
         description: "",
-        host_permissions: [
-          `https://${MT_WEBSITE_URL}/*`,
-          `http://${MT_WEBSITE_URL}/*`,
-        ],
+        host_permissions: [`${MT_WEBSITE_URL}/*`],
         icons: {
           "16": "images/16x16.png",
           "32": "images/32x32.png",

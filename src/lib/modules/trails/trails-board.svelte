@@ -9,8 +9,6 @@
   const originContext = getOriginContext();
 </script>
 
-<pre>{originContext.origin}</pre>
-
 {#if originContext.origin === MT_WEBSITE_URL}
   <main class="flex flex-col gap-4 p-2">
     <ExportButton />
@@ -19,7 +17,6 @@
   </main>
 {:else}
   <main>
-    <span>{originContext.origin}</span>
     <p>{$_("incorect_site")}</p>
   </main>
 {/if}
