@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Badge from "$lib/components/ui/badge/badge.svelte";
   import { Button } from "$lib/components/ui/button";
   import * as Dialog from "$lib/components/ui/dialog";
   import { Input } from "$lib/components/ui/input";
@@ -29,6 +30,20 @@
 
   const formId = "filter-dialog";
 
+  const filtersCount = $derived.by(() => {
+    let count = 0;
+
+    if (minDate) {
+      count += 1;
+    }
+
+    if (maxDate) {
+      count += 1;
+    }
+
+    return count;
+  });
+
   const onFormSubmit = async (event: FormSubmitEvent) => {
     event.preventDefault();
 
@@ -50,6 +65,12 @@
       : undefined;
     open = false;
   };
+
+  const onReset = () => {
+    minDate = undefined;
+    maxDate = undefined;
+    open = false;
+  };
 </script>
 
 <Dialog.Root bind:open>
@@ -58,9 +79,13 @@
       <Button
         variant="outline"
         aria-label={$_("trails.filters_header")}
+        class="relative"
         {...props}
       >
         <FunnelIcon />
+        {#if filtersCount !== 0}
+          <Badge class="absolute -top-1 -right-1">{filtersCount}</Badge>
+        {/if}
       </Button>
     {/snippet}
   </Dialog.Trigger>
@@ -89,6 +114,9 @@
       </div>
     </form>
     <Dialog.Footer>
+      <Button type="button" variant="link" onclick={onReset}>
+        {$_("common.reset")}
+      </Button>
       <Button type="submit" form={formId}>{$_("common.save")}</Button>
     </Dialog.Footer>
   </Dialog.Content>

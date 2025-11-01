@@ -22,7 +22,7 @@ export const exportToGpx = async (trail: TrailEntry) => {
       newDate.setTime(newDate.getTime() + diffTime);
 
       return newDate.toJSON();
-    }
+    },
   );
 
   const link = document.createElement("a");
