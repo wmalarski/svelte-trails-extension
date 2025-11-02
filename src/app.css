@@ -2,7 +2,6 @@
 
 @import "tw-animate-css";
 
-/* biome-ignore lint/suspicious/noUnknownAtRules: needed */
 @custom-variant dark (&:is(.dark *));
 
 :root {
@@ -74,7 +73,6 @@
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
 
-/* biome-ignore lint/suspicious/noUnknownAtRules: needed */
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -115,11 +113,9 @@
 
 @layer base {
   * {
-    /* biome-ignore lint/suspicious/noUnknownAtRules: needed */
     @apply border-border outline-ring/50;
   }
   body {
-    /* biome-ignore lint/suspicious/noUnknownAtRules: needed */
     @apply bg-background text-foreground;
   }
 }
